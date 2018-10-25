@@ -10,15 +10,15 @@ LIBS=-lm
 _OBJ = wall_t.o main.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-all: divide_conquer
+all: wall
 
-$(ODIR)/wall_t.o: $(ODIR)/wall_t.cpp
+$(ODIR)/wall_t.o: $(ODIR)/wall_t_remake.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/main.o: $(ODIR)/main.cpp $(IDIR)/wall_t.hpp
-	$(CC) -c -o $@ $< $(CFLAGS)		
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-divide_conquer: $(OBJ)
+wall: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean

@@ -7,38 +7,30 @@
 
 using namespace std;
 
-typedef unsigned short block_t; //Tipo de bloque Si es 1 se trata de un b2,
-                                //si es 0 se trata de un b3
-
-typedef struct {
-  int b2; //numero de bloques de 2x1
-  int b3; //numero de bloques de 3x1
-} wall_section; //Una fila del muro
-
 class wall_t {
 private:
-  //int b2_; //Numero de bloques de 2x1
-  //int b3_; //Numero de bloques de 3x1
 
   int H_; //Altura del muro
   int L_; //Anchura del muro
 
-  int muros_; //Numero de muros posibles
+  vector<vector<int> > rows_; //Numero de filas posibles
+  vector<vector<int> > next_; //rows_[0] it's compatible with rows_[1] and rows_[2], if and only if next_[0] = {1,2}
+  vector<vector<int> > walls_; //numero de muros posibles
 
 public:
 
   wall_t (void); //Constructor por defecto
   wall_t (int l, int h);
-
-  ostream& write (ostream& os);
-  ostream& write_section (ostream& os, vector<wall_section>& sections);
-  ostream& write (ostream& os, vector<block_t>& v);
-
-  void create_wall (void);
-  int combinations (void);
+  ostream& write_row (vector<int>& v);
+  void write_wall (vector<int>& wall);
+  void walls (void);
+  //const vector<vector<int> > get_rows (void);
 
 private:
-  vector<wall_section> combination_number_blocks (void); //Calcula el numero de combinaciones posibles para una sola fila
-  void create_section (wall_section s, block_t initial);
-  void create_wall (const vector<wall_section>& ws, int initial_value);
+  void next_rows (void);
+  void generate_rows (void);
+  void generate_rows (vector<int>& row);
+  int total (vector<int>& v);
+  bool check (vector<int>& v1, vector<int>& v2);
+  void create_walls (vector<int>& wall, int i);
 };

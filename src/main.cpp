@@ -2,8 +2,9 @@
 
 int main (void) {
 
-  wall_t wall(9,3);
+  wall_t wall(6,3);
 
+  vector<int> aux;
 
-  wall.create_wall();
+  wall.walls();
 }
