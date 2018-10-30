@@ -12,7 +12,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: wall
 
-$(ODIR)/wall_t.o: $(ODIR)/wall_t_remake.cpp
+$(ODIR)/wall_t.o: $(ODIR)/wall_t.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/main.o: $(ODIR)/main.cpp $(IDIR)/wall_t.hpp

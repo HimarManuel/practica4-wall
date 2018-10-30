@@ -4,8 +4,11 @@
 
 #include <vector>
 #include <cmath>
+#include <ctime>
 
 using namespace std;
+
+unsigned tiempo0, tiempo1;
 
 class wall_t {
 private:
