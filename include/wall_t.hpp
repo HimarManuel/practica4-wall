@@ -1,39 +1,47 @@
 #pragma once
 
-#include <iostream>
-
-#include <vector>
-#include <cmath>
-#include <ctime>
-
-using namespace std;
-
-unsigned tiempo0, tiempo1;
+#include "row_t.hpp"
 
 class wall_t {
 private:
 
   int H_; //Altura del muro
-  int L_; //Anchura del muro
 
-  vector<vector<int> > rows_; //Numero de filas posibles
-  vector<vector<int> > next_; //rows_[0] it's compatible with rows_[1] and rows_[2], if and only if next_[0] = {1,2}
-  vector<vector<int> > walls_; //numero de muros posibles
+  vector<row_t> wall_;
 
 public:
 
-  wall_t (void); //Constructor por defecto
-  wall_t (int l, int h);
-  ostream& write_row (vector<int>& v);
-  void write_wall (vector<int>& wall);
-  void walls (void);
-  //const vector<vector<int> > get_rows (void);
+  wall_t (int h) : H_(0), wall_(h) {}
+  wall_t (void) : H_(0), wall_() {}
 
-private:
-  void next_rows (void);
-  void generate_rows (void);
-  void generate_rows (vector<int>& row);
-  int total (vector<int>& v);
-  bool check (vector<int>& v1, vector<int>& v2);
-  void create_walls (vector<int>& wall, int i);
+  ~wall_t (void) { wall_.clear(); };
+
+  void insert_row (row_t& row) {
+    wall_[H_] = row;
+    H_++;
+  }
+
+  void remove_row (void) {
+    H_--;
+  }
+
+  int heigh (void) {
+    return H_;
+  }
+
+  ostream& write (void) {
+    for (int i = 0; i < wall_.size(); i++) {
+      wall_[i].write();
+      cout << "\n";
+    }
+    return cout;
+  }
+
+  ostream& write (ostream& os) {
+    for (int i = 0; i < wall_.size(); i++) {
+      wall_[i].write();
+      os << "\n";
+    }
+    return os;
+  }
 };

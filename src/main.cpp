@@ -1,4 +1,6 @@
-#include "../include/wall_t.hpp"
+#include "../include/context_t.hpp"
+
+unsigned tiempo0, tiempo1;
 
 int main (void) {
 
@@ -11,13 +13,31 @@ int main (void) {
 
   tiempo0 = clock();
 
-  wall_t wall(L,H);
+  context_t muros(L,H);
 
-  vector<int> aux;
+  muros.generate_walls();
 
-  wall.walls();
-
+  cout << "Combinaciones posibles: " << muros.posibilities() << "\n";
   tiempo1 = clock();
 
   cout << "Tiempo total: " << double(tiempo1-tiempo0)/CLOCKS_PER_SEC << "s\n";
+
+  while(true) {
+    char eleccion;
+    cout << "¿Quieres imprimir todas las combinaciones posibles? (S/n): ";
+    cin >> eleccion;
+
+    if (eleccion == 'S' || eleccion == 's') {
+      tiempo0 = clock();
+      muros.write_walls();
+      tiempo1 = clock();
+      cout << "Tiempo total de impresion: " << double(tiempo1-tiempo0)/CLOCKS_PER_SEC << "s\n";
+      break;
+    } else if (eleccion == 'n' || eleccion == 'N') {
+      break;
+    } else {
+      cerr << "Debes indicar con los descrito en los parentesis.\n";
+    }
+  }
+
 }
